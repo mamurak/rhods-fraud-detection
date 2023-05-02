@@ -1,3 +1,12 @@
 import numpy as np
 import pandas as pd
-df = pd.read_parquet("fraud-cleaned-sample.parquet")
+
+
+def ingest_data():
+    print('ingesting data')
+    
+    print('data ingestion done')
+
+
+if __name__ == '__main__':
+    ingest_data()
