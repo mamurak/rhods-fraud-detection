@@ -1,5 +1,5 @@
-import joblib
-import pandas as pd
+from joblib import dump, load
+from pandas import read_parquet
 from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -9,7 +9,7 @@ from sklearn.pipeline import Pipeline
 def train_model_pipeline():
     print('training model')
 
-    df = pd.read_parquet("fraud-cleaned-sample.parquet")
+    df = read_parquet('data.parquet')
     train, test = train_test_split(df, random_state=43)
 
     feature_pipeline = _load_feature_pipeline()
@@ -23,14 +23,14 @@ def train_model_pipeline():
         ('model', model)
     ])
     pipeline.fit(train, y = train["label"])
-    joblib.dump(pipeline, open('model.joblib', 'wb'))
+    dump(pipeline, open('model.joblib', 'wb'))
 
     print('model training done')
 
 
 def _load_feature_pipeline():
     with open('feature_pipeline.joblib', 'rb') as inputfile:
-        feature_pipeline = joblib.load(inputfile)
+        feature_pipeline = load(inputfile)
     return feature_pipeline
 
 

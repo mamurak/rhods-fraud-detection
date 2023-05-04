@@ -1,5 +1,5 @@
-import joblib
-import pandas as pd
+from joblib import dump
+from pandas import read_parquet
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
@@ -10,7 +10,7 @@ from sklearn.preprocessing import FunctionTransformer, RobustScaler, OneHotEncod
 def preprocess_data():
     print('preprocessing data')
 
-    df = pd.read_parquet("fraud-cleaned-sample.parquet")
+    df = read_parquet('data.parquet')
     train, _ = train_test_split(df, random_state=43)
 
     def amap(s):
@@ -44,7 +44,7 @@ def preprocess_data():
     feature_pipeline = Pipeline([('feature_extraction', all_xforms)])
 
     feature_pipeline.fit(train)
-    joblib.dump(feature_pipeline, open('feature_pipeline.joblib', 'wb'))
+    dump(feature_pipeline, open('feature_pipeline.joblib', 'wb'))
 
     print('data processing done')
 

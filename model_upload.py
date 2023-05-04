@@ -1,16 +1,16 @@
-import os
+from os import environ
 
 from boto3 import client
 
 
-model_object_name = os.environ.get('MODEL_OBJECT_NAME', 'model.joblib')
-s3_endpoint_url = os.environ.get('AWS_S3_ENDPOINT')
-s3_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
-s3_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
-s3_bucket_name = os.environ.get('AWS_S3_BUCKET')
+model_object_name = environ.get('MODEL_OBJECT_NAME', 'model.joblib')
+s3_endpoint_url = environ.get('AWS_S3_ENDPOINT')
+s3_access_key = environ.get('AWS_ACCESS_KEY_ID')
+s3_secret_key = environ.get('AWS_SECRET_ACCESS_KEY')
+s3_bucket_name = environ.get('AWS_S3_BUCKET')
 
 
-def upload_model(model_object_name='model.onnx'):
+def upload_model(model_object_name='model.joblib'):
     s3_client = _initialize_s3_client(
         s3_endpoint_url=s3_endpoint_url,
         s3_access_key=s3_access_key,
